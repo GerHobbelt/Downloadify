@@ -26,7 +26,7 @@
 */
 
 (function(){
-  Downloadify = window.Downloadify = {
+  var Downloadify = window.Downloadify = {
     queue: {},
     uid: new Date().getTime(), 
     getTextForSave: function(queue){
