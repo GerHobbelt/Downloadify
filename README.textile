@@ -94,8 +94,9 @@ h3. Developers
 
 h3. Change Log
 
-* *Version 0.21*:
-** Added basic copy to clipboard support.
+* *Version 0.22*:
+** Added basic copy to clipboard support. - Seedmanc
+* *Version 0.2*:
 ** Added support for <tt>base64</tt> via the "as3base64 Library":http://github.com/spjwebster/as3base64
 ** Added <tt>dataType</tt> option
 ** Added MooTools helper (Thanks David!)
