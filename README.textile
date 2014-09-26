@@ -1,30 +1,28 @@
-h2. Downloadify: Client Side File Creation
+h2. Downloadify+Clip: Client Side File Creation and Clipboard Copy
 
 *_Important! The swf has been compiled for online use only. Testing from the file path (i.e. file:// ) will not work as it will violate the security sandbox._*
+^ I dunno about this, seems to be working just fine for me from local (Seedmanc).
 
 h3. Overview
 
-This library is a tiny JavaScript + Flash library that allows you to generate files on the fly, in the browser, without server interaction. Web applications that allow you to generate vCards, color palettes, custom code, etc would benefit from using this library. In addition to increasing speed (no round trip to the server) this solution can reduce the database and server load of existing web applications. _This is not a library to 'force download' a file from a server. It does not interact with a server at all._
+This library is a tiny JavaScript + Flash library that allows you to generate files on the fly, in the browser, without server interaction and copy an arbitrary string of text to clipboard upon saving. Web applications that allow you to generate vCards, color palettes, custom code, etc would benefit from using this library. In addition to increasing speed (no round trip to the server) this solution can reduce the database and server load of existing web applications. Note that in order to "force download" file from server you can make an XMLHTTPRequest with response type as blob, convert that blob to Base64 using FileReader and supply that as data source to Downloadify setting datatype to "base64".
 
 h3. Demo
 
 A "very simple demo is available":http://pixelgraphics.us/downloadify/test.html that lets you supply your own content and filename and test out saving, canceling, and the error functionality when the file is blank.
+^ As this site does not belong to me it only has demo for file-saving functionality of Downloadify, no new copying version - Seedmanc.
 
 For a real world usage, see "Starter for jQuery":http://starter.pixelgraphics.us . To quickly demo the usage, just click "Load Example Data" then click Download. After the initial page load, no further contact is made with the server. Everything happens on the client side.
 
 h3. Download
 
-Please download from the "Downloads":http://github.com/dcneiner/Downloadify/downloads section of this project.
-
-h3. Support
-
-For support, please use the "Issues":http://github.com/dcneiner/Downloadify/issues section of this project. You can also try to hit me up on "Twitter at @dougneiner":http://twitter.com/dougneiner but I might just ask you to file an issue. :)
+Please download from the "Downloads":http://github.com/Seedmanc/Downloadify/downloads section of this project.
 
 h3. Dependencies
 
 _The end user must have Flash 10 or higher installed for this plugin to work. As of September 2009, it was at a 93% saturation, so most users should already have it installed._
 
-Downloadify is only dependent on "SWFObject 2.0":http://code.google.com/p/swfobject/ which is included with the download. It is compatible with any JavaScript framework but has a helper for both jQuery and MooTools. Neither helper will be activatd if Downloadify is inserted prior to including the framework library.
+Downloadify is only dependent on "SWFObject 2.0":http://code.google.com/p/swfobject/ which is included with the download. It is compatible with any JavaScript framework but has a helper for both jQuery and MooTools. Neither helper will be activated if Downloadify is inserted prior to including the framework library.
 
 h3. Usage
 
@@ -55,6 +53,7 @@ Unless you are using the jQuery plugin included with Downloadify, you must suppl
 * <tt>dataType</tt>: <tt>'string'</tt><br /> _Must be a String with the value <tt>string</tt> or <tt>base64</tt>. Data paired with the <tt>dataType</tt> of <tt>base64</tt> will be decoded into a <tt>ByteArray</tt> prior to saving._
 * <tt>transparent</tt>: false <br />_Set this to true to use wmode=transparent on the flash movie._
 * <tt>append</tt>: false <br />_By default the contents of the targeted DOM element are removed. Set this to true to keep the contents and append the button._
+* <tt>textcopy</tt>: '' <br />_String to be copied to clipboard upon saving._
 
 *Event Callbacks*
 
@@ -81,7 +80,7 @@ When working with different button images, you may find Flash has cached your im
 
 h3. Compiling Notes
 
-I develop locally using Xcode and the Flex 4 SDK Beta 2. Please do not submit request on how to setup a local testing environment. If you are interested in my Xcode project files, send me a message. 
+Current version was compiled using online IDE+SDK http://wonderfl.net. Note that it does not seem to be supporting separate files with code so you'll have to copy contents of base64.as to the main downloadify.as file and edit the sources appropriately to make it work there (put contents of downloadify.as into a package and put base64.as as a class outside the package with it's own "import flash.utils.ByteArray" inside).
 
 h3. Developers
 
@@ -91,9 +90,12 @@ h3. Developers
 
 * "David Walsh":http://davidwalsh.name -- Contributed the MooTools helper
 
+* "Seedmanc":http://twitter.com/Seedmanc -- Added copy to clipboard function
+
 h3. Change Log
 
-* *Version 0.2*:
+* *Version 0.21*:
+** Added basic copy to clipboard support.
 ** Added support for <tt>base64</tt> via the "as3base64 Library":http://github.com/spjwebster/as3base64
 ** Added <tt>dataType</tt> option
 ** Added MooTools helper (Thanks David!)
