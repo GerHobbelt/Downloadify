@@ -1,7 +1,7 @@
 h2. Downloadify+Clip: Client Side File Creation and Clipboard Copy
 
 *_Important! The swf has been compiled for online use only. Testing from the file path (i.e. file:// ) will not work as it will violate the security sandbox._*
-^ I dunno about this, seems to be working just fine for me from local (Seedmanc).
+^ I dunno about this, seems to be working just fine for me from a local *.html (Seedmanc).
 
 h3. Overview
 
@@ -53,7 +53,7 @@ Unless you are using the jQuery plugin included with Downloadify, you must suppl
 * <tt>dataType</tt>: <tt>'string'</tt><br /> _Must be a String with the value <tt>string</tt> or <tt>base64</tt>. Data paired with the <tt>dataType</tt> of <tt>base64</tt> will be decoded into a <tt>ByteArray</tt> prior to saving._
 * <tt>transparent</tt>: false <br />_Set this to true to use wmode=transparent on the flash movie._
 * <tt>append</tt>: false <br />_By default the contents of the targeted DOM element are removed. Set this to true to keep the contents and append the button._
-* <tt>textcopy</tt>: '' <br />_String to be copied to clipboard upon saving._
+* <tt>textcopy</tt>: '' <br />_String or function result to be copied to clipboard upon saving._
 
 *Event Callbacks*
 
@@ -80,7 +80,7 @@ When working with different button images, you may find Flash has cached your im
 
 h3. Compiling Notes
 
-Current version was compiled using online IDE+SDK http://wonderfl.net. Note that it does not seem to be supporting separate files with code so you'll have to copy contents of base64.as to the main downloadify.as file and edit the sources appropriately to make it work there (put contents of downloadify.as into a package and put base64.as as a class outside the package with it's own "import flash.utils.ByteArray" inside).
+Current version was compiled using online IDE+SDK http://wonderfl.net.  Since it does not support separate files with code you'll need to put both downloadify.as and base64.as into a single file.
 
 h3. Developers
 
