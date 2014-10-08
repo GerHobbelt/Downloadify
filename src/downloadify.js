@@ -44,6 +44,11 @@
       if(obj) return obj.getDataType();
       return "";
     },
+    getTextForCopy: function(queue){
+      var obj = Downloadify.queue[queue];
+      if(obj) return obj.getTextCopy();
+      return "";
+    },
     saveComplete: function(queue){
       var obj = Downloadify.queue[queue];
       if(obj) obj.complete();
@@ -82,6 +87,7 @@
     base.enabled = true;
     base.dataCallback = null;
     base.filenameCallback = null;
+	base.textcopyCallback = null;
     base.data = null;
     base.filename = null;
  
@@ -105,7 +111,11 @@
       else if (base.options.data)
         base.data = base.options.data;
         
-        
+	  if( typeof(base.options.textcopy) === "function" )
+         base.textcopyCallback = base.options.textcopy;
+      else if (base.options.textcopy)
+        base.textcopy = base.options.textcopy; 
+		
       var flashVars = {
         queue_name: base.queue_name,
         width: base.options.width,
@@ -161,7 +171,13 @@
       if (base.options.dataType) return base.options.dataType;
       return "string";
     };
-    
+	
+    base.getTextCopy = function(){
+      if( base.textcopyCallback ) return base.textcopyCallback();
+      else if (base.textcopy) return base.textcopy;
+      else return "";
+    };    
+	
     base.complete = function(){
       if( typeof(base.options.onComplete) === "function" ) base.options.onComplete();
     };

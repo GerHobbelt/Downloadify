@@ -36,6 +36,11 @@ package {
   import flash.external.ExternalInterface;
   import com.dynamicflash.util.Base64;
   
+  import flash.system.Capabilities;
+  import flash.system.System;
+  import flash.desktop.Clipboard;
+  import flash.desktop.ClipboardFormats;
+  
   [SWF(backgroundColor="#CCCCCC")]
   [SWF(backgroundAlpha=0)]
   public class Downloadify extends Sprite {
@@ -143,8 +148,12 @@ package {
     protected function onMouseClickEvent(event:Event):void{
       var theData:String  = ExternalInterface.call('Downloadify.getTextForSave',queue_name),
           filename:String = ExternalInterface.call('Downloadify.getFileNameForSave',queue_name),
-          dataType:String = ExternalInterface.call('Downloadify.getDataTypeForSave',queue_name);
+          dataType:String = ExternalInterface.call('Downloadify.getDataTypeForSave',queue_name),
+          textCopy:String = ExternalInterface.call('Downloadify.getTextForCopy',queue_name);
           
+     if (textCopy != "") 
+        System.setClipboard(textCopy);     
+        
       if (dataType == "string" && theData != "") {
         file.save(theData, filename);
       } else if (dataType == "base64" && theData){
