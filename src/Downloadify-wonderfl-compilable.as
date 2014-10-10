@@ -27,7 +27,7 @@
 
 package {
   import flash.system.Security;
-  import flash.events.Event; 
+  import flash.events.Event;
   import flash.events.MouseEvent;
   import flash.net.FileReference;
   import flash.net.FileFilter;
@@ -72,7 +72,7 @@ package {
       _width  = options.width;
       _height = options.height;
       
-      if(options.downloadImage){
+      if (options.downloadImage) {
         buttonImage = options.downloadImage;
       }
       
@@ -95,7 +95,7 @@ package {
     
     private function setEnabled(isEnabled:Boolean):Boolean {
       enabled = isEnabled;
-      if(enabled === true){
+      if (enabled === true) {
         button.y = 0;
         this.buttonMode = true;
       } else {
@@ -116,26 +116,30 @@ package {
     
     
     protected function onMouseEnter(event:Event):void {
-      if(enabled === true){
-        if(down === false) button.y = (-1 * _height);
+      if (enabled === true) {
+        if (down === false) {
+          button.y = (-1 * _height);
+        }
         over = true;
       }
     }
     protected function onMouseLeave(event:Event):void {
-      if(enabled === true){
-        if(down === false) button.y = 0;
+      if (enabled === true) {
+        if (down === false) {
+          button.y = 0;
+        }
         over = false;
       }
     }
     protected function onMouseDown(event:Event):void {
-      if(enabled === true){
+      if (enabled === true) {
         button.y = button.y = (-2 * _height);
         down = true;
       }
     }
     protected function onMouseUp(event:Event):void {
-      if(enabled === true){
-        if(over === false){
+      if (enabled === true) {
+        if (over === false) {
           button.y = 0;
         } else {
           button.y = (-1 * _height);
@@ -144,35 +148,36 @@ package {
       }
     }
     
-    protected function onMouseClickEvent(event:Event):void{
+    protected function onMouseClickEvent(event:Event):void {
       var theData:String  = ExternalInterface.call('Downloadify.getTextForSave',queue_name),
           filename:String = ExternalInterface.call('Downloadify.getFileNameForSave',queue_name),
           dataType:String = ExternalInterface.call('Downloadify.getDataTypeForSave',queue_name),
           textCopy:String = ExternalInterface.call('Downloadify.getTextForCopy',queue_name);
           
-     if (textCopy != "") 
-        System.setClipboard(textCopy);     
+      if (textCopy != "") {
+        System.setClipboard(textCopy);
+      }     
         
       if (dataType == "string" && theData != "") {
         file.save(theData, filename);
-      } else if (dataType == "base64" && theData){
+      } else if (dataType == "base64" && theData) {
         file.save(Base64.decodeToByteArray(theData), filename);
       } else {
         onSaveError();
       }
     }
     
-    protected function onSaveComplete(event:Event):void{
+    protected function onSaveComplete(event:Event):void {
       trace('Save Complete');
       ExternalInterface.call('Downloadify.saveComplete',queue_name);
     }
     
-    protected function onSaveCancel(event:Event):void{
+    protected function onSaveCancel(event:Event):void {
       trace('Save Cancel');
       ExternalInterface.call('Downloadify.saveCancel',queue_name);  
     }
     
-    protected function onSaveError():void{
+    protected function onSaveError():void {
       trace('Save Error');
       ExternalInterface.call('Downloadify.saveError',queue_name);  
     }

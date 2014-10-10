@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<title>Downloadify</title>
 		<style type="text/css" media="screen">
@@ -64,9 +64,28 @@
             .downloadify:active {
                 border-style: outset inset inset outset;
             }
+
+
+            .downloadify_html5 a {
+                background-color: #222;
+                border-radius: 6px;
+                border: 1px solid #333;
+                display: inline-block;
+                text-decoration: none;
+                background-position-y: 0px; 
+            }
+
+            .downloadify_html5 a:hover {
+                background-position-y: -60px; 
+            }
+
+            .downloadify_html5 a:visited {
+                border-style: outset inset inset outset;
+                background-position-y: -90px; 
+            }
 		</style>
 		<script type="text/javascript" src="js/swfobject.js"></script>
-		<script type="text/javascript" src="js/downloadify.min.js"></script>
+		<script type="text/javascript" src="src/downloadify.js"></script>
 	</head>
 	<body onload="load();">
 		<h1>Downloadify Example</h1>
@@ -81,12 +100,12 @@
                 <textarea cols="60" rows="10" name="data" id="data">
 Whatever you put in this text box will be downloaded and saved in the file. If you leave it blank, no file will be downloaded</textarea>
 			</p>
-            <p>There are two ways to trigger Downloadify:</p>
+            <p>There are three ways to trigger Downloadify:</p>
             <div>
                 <strong>1. Using an external image loaded by flash</strong>
-			<p id="downloadify">
-				You must have Flash 10 installed to download this file.
-			</p>
+    			<p id="downloadify">
+    				You must have Flash 10 installed to download this file.
+    			</p>
             </div>
             <div>
                 <strong>2. Using html with a transparent flash overlay</strong>
@@ -96,11 +115,17 @@ Whatever you put in this text box will be downloaded and saved in the file. If y
                     </a>
                 </p>
             </div>
+            <div>
+                <strong>3. Using HTML5 data URL (No Flash)</strong>
+                <p id="downloadify_dataURL" class="downloadify_html5">
+                    Save to disk
+                </p>
+            </div>
 		</form>
 
 		<script type="text/javascript">
-			function load(){
-				Downloadify.create('downloadify',{
+			function load () {
+				Downloadify.create('downloadify', {
                     filename: function () {
                         return document.getElementById( 'filename' ).value;
                     },
@@ -133,7 +158,7 @@ Whatever you put in this text box will be downloaded and saved in the file. If y
                     append: false
 				});
                 // using a transparent overlay
-				Downloadify.create('downloadify_html',{
+				Downloadify.create('downloadify_html', {
                     filename: function () {
                         return document.getElementById( 'filename' ).value;
                     },
@@ -161,17 +186,48 @@ Whatever you put in this text box will be downloaded and saved in the file. If y
                     swf: 'media/downloadify.swf',
                     hidden: true
 				});
+                // using a data URL
+                Downloadify.create('downloadify_dataURL', {
+                    filename: function () {
+                        return document.getElementById( 'filename' ).value;
+                    },
+                    data: function () {
+                        return document.getElementById( 'data' ).value;
+                    },
+                    onComplete: function () {
+                        // use setTimeout to prevent Firefox from hanging when using alert
+                        setTimeout( function() {
+                            alert( 'Your File Has Been Saved!' );
+                        }, 0 );
+                    },
+                    onCancel: function () {
+                        // use setTimeout to prevent Firefox from hanging when using alert
+                        setTimeout( function() {
+                            alert( 'You have cancelled the saving of this file.' );
+                        }, 0 );
+                    },
+                    onError: function () {
+                        // use setTimeout to prevent Firefox from hanging when using alert
+                        setTimeout( function() {
+                            alert( 'You must put something in the File Contents or there will be nothing to save!' );
+                        }, 0 );
+                    },
+                    downloadImage: 'images/download2.png',
+                    width: 100,
+                    height: 30,
+                    noFlash: true
+                });
 			}
 		</script>
 	<h2>Downloadify Invoke Script For This Page</h2>	
 <pre>
 // using an external image
 
-Downloadify.create('downloadify',{
-    filename: function(){
+Downloadify.create('downloadify', {
+    filename: function () {
         return document.getElementById('filename').value;
     },
-    data: function(){
+    data: function () {
         return document.getElementById('data').value;
     },
     onComplete: function () {
@@ -203,11 +259,11 @@ Downloadify.create('downloadify',{
 
 // using a transparent overlay
 
-Downloadify.create('downloadify_html',{
-    filename: function(){
+Downloadify.create('downloadify_html', {
+    filename: function () {
         return document.getElementById('filename').value;
     },
-    data: function(){
+    data: function () {
         return document.getElementById('data').value;
     },
     onComplete: function () {

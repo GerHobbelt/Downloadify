@@ -1,3 +1,39 @@
+*This is a fork of "Downloadify":https://github.com/dcneiner/Downloadify.*
+
+The readme below is the same as the original one as the changes here are minor.
+
+h3. New Options
+
+There are a few new options:
+
+* *mimeType* - Data URI's require this. Defaults to 'text/plain'.
+* *customLinkClass* - Optional class to add to the link that is generated for Safari users. 
+* *afterFlashInit* - Function to call after the Flash portion executes. In test.html, this adds some help text explaining what to do if you don't have Flash Player, and opens a modal where the download button has been placed.
+* *afterSafariInit* - Function to call after the Safari only portion executes. In test.html, this adds some help text explaining how to save the file, and opens a modal where the download button has been placed.
+* *force* - Force Staircar to behave as if a specific browser is being used. The available options are *Safari* and *IE* (defaults to no forcing).
+
+The example in test.html reflects the changes made here. There's a form to enter filename, MIME type and file content. 
+
+When the button is pressed, if you have IE, a modal appears with a Flash based download button. If you have Safari, you get a modal with a HTML link to open a data URI in a new tab, and download instructions. All other browsers just download the data URI seamlessly.
+
+h3. Browser Support
+
+The decision on whether to launch a HTML or Flash download is based on browser detection. Feature detection would be preferable, but I haven't found a good way of implementing this yet.
+
+*Internet Explorer* - Whilst IE does support data URIs, it only allows them for certain MIME content types (see http://en.wikipedia.org/wiki/Data_URI_scheme#Web_browser_support).
+
+A future update is planned to allow non flash downloads proceed in IE for allowed MIME types.
+
+*Safari* - Safari supports data URIs fine, but when opening one, instead of downloading the file, it opens it in the current window. Therefore it's slightly inoptimal, so the workaround is to present a link that opens in a new tab, and some instructions for the user on how to download the resulting data.
+
+All other browsers are set to use a data URI for a seamless download.
+
+
+
+                        - - - - - *Original readme follows* - - - - - 
+
+
+
 h2. Downloadify+Clip: Client Side File Creation and Clipboard Copy
 
 *_Important! The swf has been compiled for online use only. Testing from the file path (i.e. file:// ) will not work as it will violate the security sandbox._*
@@ -16,7 +52,7 @@ For a real world usage, see "Starter for jQuery":http://starter.pixelgraphics.us
 
 h3. Download
 
-Please download from the "Downloads":http://github.com/Seedmanc/Downloadify/downloads section of this project.
+Please download from the "Downloads":http://github.com/dcneiner/Downloadify/downloads section of this project.
 
 h3. Support
 
